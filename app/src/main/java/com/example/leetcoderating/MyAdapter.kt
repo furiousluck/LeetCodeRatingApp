@@ -9,10 +9,27 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MyAdapter(var con: Context, var list: List<ContestsItem>): RecyclerView.Adapter<MyAdapter.ViewHolder>(){
 
+    private var itemClickListener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
+    }
+
+
+
     inner class ViewHolder(v:View):RecyclerView.ViewHolder(v)
     {
         var name = v.findViewById<TextView>(R.id.contestname)
         var date = v.findViewById<TextView>(R.id.contestdate)
+
+        init {
+            v.setOnClickListener(View.OnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = list[position]
+                    itemClickListener?.onItemClick(item)
+                }
+            })
+        }
 
     }
 
@@ -33,5 +50,8 @@ class MyAdapter(var con: Context, var list: List<ContestsItem>): RecyclerView.Ad
         return list.count()
     }
 
+    interface OnItemClickListener {
+        fun onItemClick(contestItem: ContestsItem)
+    }
 
 }

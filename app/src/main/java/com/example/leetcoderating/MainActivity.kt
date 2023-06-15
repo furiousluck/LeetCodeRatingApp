@@ -1,5 +1,6 @@
 package com.example.leetcoderating
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -47,6 +48,16 @@ class MainActivity : AppCompatActivity() {
                 var data = response.body()!!
                 myAdaptor = MyAdapter(baseContext,data)
                 rvMain.adapter = myAdaptor
+
+                myAdaptor.setOnItemClickListener(object : MyAdapter.OnItemClickListener{
+                    override fun onItemClick(contestItem: ContestsItem) {
+                        val intent = Intent(this@MainActivity, MainActivity2::class.java)
+                        // Pass any necessary data to the second activity
+                        intent.putExtra("contestId", contestItem.titleSlug)
+                        startActivity(intent)
+                    }
+
+                })
                 Log.d("data",data.toString())
             }
 
