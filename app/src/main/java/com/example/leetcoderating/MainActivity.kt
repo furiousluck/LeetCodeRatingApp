@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
@@ -18,13 +20,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var rvMain : RecyclerView
     lateinit var myAdaptor: MyAdapter
     var BASE_URL = "https://lccn.lbao.site/api/v1/"
+    lateinit var loading : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         rvMain = findViewById(R.id.recycler_view)
         rvMain.layoutManager = LinearLayoutManager(this)
-
+        loading = findViewById<ProgressBar>(R.id.bar)
         getAllData()
     }
 
@@ -45,6 +48,8 @@ class MainActivity : AppCompatActivity() {
                 call: Call<List<ContestsItem>>,
                 response: Response<List<ContestsItem>>
             ) {
+                loading.visibility = View.GONE
+                rvMain.visibility = View.VISIBLE
                 var data = response.body()!!
                 myAdaptor = MyAdapter(baseContext,data)
                 rvMain.adapter = myAdaptor
