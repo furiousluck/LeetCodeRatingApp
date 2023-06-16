@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity2">
+    tools:context=".MainActivity2"
+    android:background="@drawable/background_ranks">
 
 
     <ProgressBar
@@ -17,14 +18,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBaseline_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view_1"
         app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/rl1"
         android:visibility="gone"
-        android:id="@+id/recycler_view_1"/>
+        android:layout_marginRight="30dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardBackgroundColor="#EADDFF"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@android:color/transparent"
+                android:hint="Search"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:textAlignment="center" />
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_1"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
+        android:background="@drawable/edit_text_border"
+        android:paddingTop="15dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

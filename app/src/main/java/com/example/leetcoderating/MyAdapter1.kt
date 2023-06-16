@@ -14,6 +14,9 @@ class MyAdapter1(var con:Context, var list:List<contestRanksItem>):RecyclerView.
         var rank = v.findViewById<TextView>(R.id.ranks)
         var username  = v.findViewById<TextView>(R.id.names)
         var delta = v.findViewById<TextView>(R.id.delta)
+        var score = v.findViewById<TextView>(R.id.score)
+        var new_rating = v.findViewById<TextView>(R.id.new_rating)
+        var old_rating = v.findViewById<TextView>(R.id.old_rating)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,8 +32,15 @@ class MyAdapter1(var con:Context, var list:List<contestRanksItem>):RecyclerView.
         val currentItem = list[position]
         holder.rank.text = currentItem.rank.toString()
         holder.username.text = currentItem.username
-        val decimalFormat = DecimalFormat("#.##")
+        val decimalFormat = DecimalFormat("#.#")
         holder.delta.text = decimalFormat.format(currentItem.delta_rating).toString()
+        val x = "Score: "+ currentItem.score.toString()
+        holder.score.text = x
+        val y = "Old Rating: "+ decimalFormat.format(currentItem.old_rating).toString()
+        val z = "New Rating: "+ decimalFormat.format(currentItem.new_rating).toString()
+        holder.old_rating.text = y;
+        holder.new_rating.text = z;
+
     }
 
 

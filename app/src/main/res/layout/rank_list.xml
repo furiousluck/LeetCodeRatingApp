@@ -1,50 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        >
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        app:cardBackgroundColor="#CCC2DC"
+        android:layout_margin="7dp">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="Rank"
-            android:textAlignment="center"
-            android:id="@+id/ranks"
-            android:textSize="25sp" />
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_margin="15dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="Rank"
+                android:textColor="#332D41"
+                android:textAlignment="center"
+                android:id="@+id/ranks"
+                android:textSize="25sp" />
+            <TextView
+                android:layout_width="wrap_content"
+
+                android:textColor="#332D41"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:layout_marginStart="70dp"
+                android:textSize="25sp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:id="@+id/names"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#332D41"
+                android:text="Delta"
+                android:id="@+id/delta"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="20dp"
+                android:textSize="25sp"
+                android:layout_marginEnd="100dp"
+                />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/dropdownLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name"
-            android:layout_marginStart="80dp"
-            android:textSize="25sp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:id="@+id/names"
-            android:textAlignment="center"
-            />
+            android:layout_below="@id/ranks"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delta"
-            android:id="@+id/delta"
-            android:layout_marginStart="300dp"
-            android:layout_marginTop="20dp"
-            android:textSize="25sp"
-            android:layout_marginEnd="100dp"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: 100"
+                android:textSize="20sp"
+                android:id="@+id/score"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Old Rating: 4.5"
+                android:id="@+id/old_rating"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp" />
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Rating: 4.8"
+                android:id="@+id/new_rating"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

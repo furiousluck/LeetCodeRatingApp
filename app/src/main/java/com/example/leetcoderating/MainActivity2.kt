@@ -1,10 +1,12 @@
 package com.example.leetcoderating
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
@@ -19,8 +21,10 @@ class MainActivity2 : AppCompatActivity() {
 
     lateinit var rvMain1:RecyclerView
     lateinit var myAdaptor1: MyAdapter1
+    lateinit var rl1:RelativeLayout
     var BASE_URL = "https://lccn.lbao.site/api/v1/"
     lateinit var progress:ProgressBar
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -34,6 +38,7 @@ class MainActivity2 : AppCompatActivity() {
         myAdaptor1 = MyAdapter1(baseContext, emptyList())
         rvMain1.adapter = myAdaptor1
         progress = findViewById<ProgressBar>(R.id.bar1)
+        rl1 = findViewById<RelativeLayout>(R.id.rl1)
         getAllData(contestid)
     }
 
@@ -55,6 +60,8 @@ class MainActivity2 : AppCompatActivity() {
                     if (response.isSuccessful) {
                         progress.visibility = View.GONE
                         rvMain1.visibility = View.VISIBLE
+                        rl1.visibility = View.VISIBLE
+
                         val data = response.body()!!
                         myAdaptor1 = MyAdapter1(baseContext, data)
                         rvMain1.adapter = myAdaptor1
