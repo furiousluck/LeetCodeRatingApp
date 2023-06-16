@@ -64,6 +64,7 @@ class MainActivity2 : AppCompatActivity() {
             getUserData(contestid,query)
             progress.visibility = View.VISIBLE
             rvMain1.visibility = View.GONE
+            searchbar.setText("")
         }
         else
         {
