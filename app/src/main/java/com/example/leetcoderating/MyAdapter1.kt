@@ -32,8 +32,13 @@ class MyAdapter1(var con:Context, var list:List<contestRanksItem>):RecyclerView.
         val currentItem = list[position]
         holder.rank.text = currentItem.rank.toString()
         holder.username.text = currentItem.username
-        val decimalFormat = DecimalFormat("#.#")
-        holder.delta.text = decimalFormat.format(currentItem.delta_rating).toString()
+        val decimalFormat = DecimalFormat("#")
+        var x1 = decimalFormat.format(currentItem.delta_rating).toString()
+        if(currentItem.delta_rating>0.0)
+        {
+            x1= "+$x1"
+        }
+        holder.delta.text = x1
         val x = "Score: "+ currentItem.score.toString()
         holder.score.text = x
         val y = "Old Rating: "+ decimalFormat.format(currentItem.old_rating).toString()

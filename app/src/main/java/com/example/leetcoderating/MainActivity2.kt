@@ -54,17 +54,23 @@ class MainActivity2 : AppCompatActivity() {
             }
             return@setOnEditorActionListener false
         }
-
     }
 
     private fun performSearch() {
         val query = searchbar.text.toString().trim()
+        val intent = intent
+        val contestid = intent.getStringExtra("contestId")
         if (query.isNotEmpty()) {
-            val intent = intent
-            val contestid = intent.getStringExtra("contestId")
             getUserData(contestid,query)
             progress.visibility = View.VISIBLE
             rvMain1.visibility = View.GONE
+        }
+        else
+        {
+            getAllData(contestid)
+            progress.visibility = View.VISIBLE
+            rvMain1.visibility = View.GONE
+            rl1.visibility = View.GONE
         }
     }
 
