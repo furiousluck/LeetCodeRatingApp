@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +27,7 @@ class MainActivity2 : AppCompatActivity() {
     lateinit var rl1:RelativeLayout
     var BASE_URL = "https://lccn.lbao.site/api/v1/"
     lateinit var progress:ProgressBar
+    lateinit var searchbar:EditText
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +38,67 @@ class MainActivity2 : AppCompatActivity() {
             Log.d("data", contestid)
         }
         rvMain1 = findViewById(R.id.recycler_view_1)
+        searchbar = findViewById(R.id.search)
         rvMain1.layoutManager = LinearLayoutManager(this)
         myAdaptor1 = MyAdapter1(baseContext, emptyList())
         rvMain1.adapter = myAdaptor1
         progress = findViewById<ProgressBar>(R.id.bar1)
         rl1 = findViewById<RelativeLayout>(R.id.rl1)
         getAllData(contestid)
+        searchbar.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                performSearch()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+
+    }
+
+    private fun performSearch() {
+        val query = searchbar.text.toString().trim()
+        if (query.isNotEmpty()) {
+            val intent = intent
+            val contestid = intent.getStringExtra("contestId")
+            getUserData(contestid,query)
+        }
+    }
+
+    private fun getUserData(contestid: String?, query: String) {
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+        val apiInterface = retrofit.create(APIInterface::class.java)
+        contestid?.let { apiInterface.getUser(it,query) }
+            ?.enqueue(object : Callback<List<contestRanksItem>> {
+                override fun onResponse(
+                    call: Call<List<contestRanksItem>>,
+                    response: Response<List<contestRanksItem>>
+                ) {
+                    if (response.isSuccessful) {
+                        progress.visibility = View.GONE
+                        rvMain1.visibility = View.VISIBLE
+                        rl1.visibility = View.VISIBLE
+                        val data = response.body()!!
+                        myAdaptor1 = MyAdapter1(baseContext, data)
+                        rvMain1.adapter = myAdaptor1
+                        Log.d("data", data.toString())
+                    } else {
+                        Log.e("fail", "API request failed with response code: ${response.code()}")
+                        Log.e("fail", "API request failed with response code: ${response.message()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<List<contestRanksItem>>, t: Throwable) {
+                    Log.e("fail", "API request failed: ${t.message}")
+                }
+
+            })
+
     }
 
     private fun getAllData(contestid: String?) {

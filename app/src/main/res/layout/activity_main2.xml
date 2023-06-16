@@ -41,6 +41,7 @@
                 android:layout_height="46dp"
                 android:background="@android:color/transparent"
                 android:hint="Search"
+                android:id="@+id/search"
                 android:textColorHint="@color/black"
                 android:textColor="@color/black"
                 android:textAlignment="center" />

@@ -10,4 +10,7 @@ interface APIInterface {
 
     @GET("contest-records/")
     fun getRanks(@Query("contest_name") contest_name:String): Call<List<contestRanksItem>>
+
+    @GET("contest-records/user")
+    fun getUser(@Query("contest_name") contest_name: String,@Query("username") username:String): Call<List<contestRanksItem>>
 }
