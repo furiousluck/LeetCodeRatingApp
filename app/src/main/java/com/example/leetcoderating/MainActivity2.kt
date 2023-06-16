@@ -46,7 +46,9 @@ class MainActivity2 : AppCompatActivity() {
         rl1 = findViewById<RelativeLayout>(R.id.rl1)
         getAllData(contestid)
         searchbar.setOnEditorActionListener { _, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH || event.keyCode == KeyEvent.KEYCODE_ENTER) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                (event?.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)
+            ) {
                 performSearch()
                 return@setOnEditorActionListener true
             }
@@ -61,6 +63,8 @@ class MainActivity2 : AppCompatActivity() {
             val intent = intent
             val contestid = intent.getStringExtra("contestId")
             getUserData(contestid,query)
+            progress.visibility = View.VISIBLE
+            rvMain1.visibility = View.GONE
         }
     }
 
@@ -88,6 +92,7 @@ class MainActivity2 : AppCompatActivity() {
                         rvMain1.adapter = myAdaptor1
                         Log.d("data", data.toString())
                     } else {
+
                         Log.e("fail", "API request failed with response code: ${response.code()}")
                         Log.e("fail", "API request failed with response code: ${response.message()}")
                     }
