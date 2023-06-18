@@ -10,8 +10,10 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
-        app:cardBackgroundColor="#CCC2DC"
-        android:layout_margin="15dp">
+        app:cardBackgroundColor="@color/material_dynamic_primary20"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,10 +21,11 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:layout_height="wrap_content"
                 android:text="Contest"
                 android:textSize="20sp"
-                android:textColor="#332D41"
+                android:textColor="@color/white"
                 android:layout_margin="10dp"
                 android:layout_marginStart="30dp"
                 android:gravity="center"
@@ -31,7 +34,8 @@
 
             <TextView
                 android:id="@+id/contestdate"
-                android:textColor="#332D41"
+                android:autoSizeTextType="uniform"
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
