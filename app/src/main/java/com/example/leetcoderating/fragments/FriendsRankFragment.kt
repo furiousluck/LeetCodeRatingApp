@@ -35,6 +35,8 @@ class FriendsRankFragment : Fragment() {
     lateinit var progress: ProgressBar
     lateinit var friendAdapter1: FriendAdapter1
     private lateinit var sharedPreferences: SharedPreferences
+    private val userDataMap: MutableMap<String, List<contestRanksItem>> = mutableMapOf()
+    private var requestCount = 0
 
 
     override fun onCreateView(
@@ -58,6 +60,7 @@ class FriendsRankFragment : Fragment() {
         rvMain1.layoutManager = LinearLayoutManager(requireContext())
         Log.d("listview", friendAdapter1.itemCount.toString())
         friendAdapter1.items.forEachIndexed { index, item ->
+            requestCount++
             getUserData(contestid,item)
         }
         return view
@@ -67,6 +70,7 @@ class FriendsRankFragment : Fragment() {
         val savedNamesSet = sharedPreferences.getStringSet("SavedNames", setOf()) ?: setOf()
         return savedNamesSet.toTypedArray()
     }
+
     private fun getUserData(contestid: String?, query: String) {
         val gson = GsonBuilder()
             .setLenient()
@@ -83,11 +87,19 @@ class FriendsRankFragment : Fragment() {
                     response: Response<List<contestRanksItem>>
                 ) {
                     if (response.isSuccessful) {
-                        progress.visibility = View.GONE
-                        rvMain1.visibility = View.VISIBLE
                         val data = response.body()!!
-                        myAdaptor1 = MyAdapter2(requireContext(), data)
-                        rvMain1.adapter = myAdaptor1
+                        userDataMap[query] = data
+                        if (--requestCount == 0) {
+                            // All requests completed, update the adapter with the collected data
+                            val friendDataList = friendAdapter1.items.mapNotNull { userDataMap[it] }
+                            val flattenedList = friendDataList.flatten().sortedBy { it.rank }
+                            myAdaptor1 = MyAdapter2(requireContext(), flattenedList)
+                            rvMain1.adapter = myAdaptor1
+                            progress.visibility = View.GONE
+                            rvMain1.visibility = View.VISIBLE
+                        }
+//                        myAdaptor1 = MyAdapter2(requireContext(), data)
+//                        rvMain1.adapter = myAdaptor1
                         Log.d("data", data.toString())
                     } else {
 
