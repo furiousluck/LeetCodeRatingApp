@@ -6,8 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.TableLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,59 +21,29 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var rvMain : RecyclerView
-    lateinit var myAdaptor: MyAdapter
-    var BASE_URL = "https://lccn.lbao.site/api/v1/"
-    lateinit var loading : ProgressBar
+    lateinit var tabLayout: TabLayout
+    lateinit var viewPager2: ViewPager2
+    lateinit var adapter1: MyViewPagerAdapter1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        rvMain = findViewById(R.id.recycler_view)
-        rvMain.layoutManager = LinearLayoutManager(this)
-        loading = findViewById<ProgressBar>(R.id.bar)
-        getAllData()
-    }
+        //new fragment
+        tabLayout = findViewById(R.id.tabs1)
+        viewPager2 = findViewById(R.id.viewpage1)
 
-    private fun getAllData() {
-        var gson = GsonBuilder()
-            .setLenient()
-            .create()
-        var retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-        var apiInterface = retrofit.create(APIInterface::class.java)
+        adapter1 = MyViewPagerAdapter1(supportFragmentManager,lifecycle)
+        viewPager2.adapter = adapter1
 
-        var retroData = apiInterface.getData()
-
-        retroData.enqueue(object : Callback<List<ContestsItem>>{
-            override fun onResponse(
-                call: Call<List<ContestsItem>>,
-                response: Response<List<ContestsItem>>
-            ) {
-                loading.visibility = View.GONE
-                rvMain.visibility = View.VISIBLE
-                var data = response.body()!!
-                myAdaptor = MyAdapter(baseContext,data)
-                rvMain.adapter = myAdaptor
-
-                myAdaptor.setOnItemClickListener(object : MyAdapter.OnItemClickListener{
-                    override fun onItemClick(contestItem: ContestsItem) {
-                        val intent = Intent(this@MainActivity, MainActivity2::class.java)
-                        // Pass any necessary data to the second activity
-                        intent.putExtra("contestId", contestItem.titleSlug)
-                        startActivity(intent)
-                    }
-
-                })
-                Log.d("data",data.toString())
+        TabLayoutMediator(tabLayout,viewPager2){
+            tab,position->when(position){
+                0->{
+                    tab.text = "Home"
+                }
+                1->{
+                    tab.text = "Friends"
+                }
             }
-
-            override fun onFailure(call: Call<List<ContestsItem>>, t: Throwable) {
-                Log.e("fail", "API request failed: ${t.message}")
-            }
-
-        })
+        }.attach()
     }
 }

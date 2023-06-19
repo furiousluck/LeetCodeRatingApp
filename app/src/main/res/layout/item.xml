@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
-        app:cardBackgroundColor="@color/material_dynamic_primary20"
+        app:cardBackgroundColor="@color/material_dynamic_secondary20"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp">
@@ -23,27 +22,23 @@
                 android:layout_width="wrap_content"
                 app:autoSizeTextType="uniform"
                 android:layout_height="wrap_content"
-                android:text="Contest"
+                android:text="Name"
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 android:layout_margin="10dp"
                 android:layout_marginStart="30dp"
                 android:gravity="center"
-                android:id="@+id/contestname"
+                android:id="@+id/friendname"
                 android:textAlignment="center"/>
 
-            <TextView
-                android:id="@+id/contestdate"
-                app:autoSizeTextType="uniform"
-                android:textColor="@color/white"
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="240dp"
-                android:gravity="center"
-                android:text="Time"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                android:layout_alignParentEnd="true"
+                android:text="Delete"
+                android:id="@+id/frienddelete"
+                />
+
         </RelativeLayout>
 
 
