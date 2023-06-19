@@ -3,6 +3,7 @@ package com.example.leetcoderating.fragments
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -55,9 +56,9 @@ class FriendsFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         emptytext.visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
+
         return view
     }
-
     private fun getSavedNames(): Array<String> {
         val savedNamesSet = sharedPreferences.getStringSet("SavedNames", setOf()) ?: setOf()
         return savedNamesSet.toTypedArray()
