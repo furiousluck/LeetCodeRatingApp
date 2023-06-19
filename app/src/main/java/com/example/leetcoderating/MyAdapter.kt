@@ -14,8 +14,6 @@ class MyAdapter(var con: Context, var list: List<ContestsItem>): RecyclerView.Ad
         itemClickListener = listener
     }
 
-
-
     inner class ViewHolder(v:View):RecyclerView.ViewHolder(v)
     {
         var name = v.findViewById<TextView>(R.id.contestname)

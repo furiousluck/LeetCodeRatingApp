@@ -26,7 +26,7 @@
                 android:id="@+id/search1"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:imeOptions="actionSearch"
+                android:imeOptions="actionGo"
                 android:inputType="text"
                 android:background="@android:color/transparent"
                 android:hint="Add Friends"
