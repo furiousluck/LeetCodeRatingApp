@@ -43,6 +43,9 @@ class MainActivity : AppCompatActivity() {
                 1->{
                     tab.text = "Friends"
                 }
+                2->{
+                    tab.text = "About Me"
+                }
             }
         }.attach()
     }
