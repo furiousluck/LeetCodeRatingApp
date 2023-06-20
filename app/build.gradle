@@ -12,7 +12,7 @@ android {
         applicationId "com.example.leetcoderating"
         minSdk 24
         targetSdk 33
-        versionCode 101
+        versionCode 102
         versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
