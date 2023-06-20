@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp"
         app:cardCornerRadius="20dp"
-        android:elevation="7dp"
+        android:elevation="8dp"
         android:layout_margin="15dp"
         app:cardBackgroundColor="@color/material_dynamic_primary20"
         >
