@@ -31,5 +31,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Friends" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Me"/>
     </com.google.android.material.tabs.TabLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
